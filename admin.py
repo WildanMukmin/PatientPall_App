@@ -21,54 +21,87 @@ class PatientPallApp(tk.Tk):
         self.geometry("1365x700")
         # self.attributes('-fullscreen', True)
         # self.resizable(False, False)
+        
 
         # <---------------------- ALL STYLE CONFIGURE ---------------------->
         self.style = ttk.Style(self)
 
         # <---------------------- STYLE FRAME ---------------------->
-
+        self.style.configure("background_login_frame.TFrame", background = "#4880FF")
+        self.style.configure("login_frame.TFrame", background = "white")
+        self.style.configure("frame_form_email.TFrame", background = "white")
+        self.style.configure("frame_form_password.TFrame", background = "white")
+        
         # <---------------------- STYLE LABEL ---------------------->
+        self.style.configure("label_login.TLabel", background = "white", font=("NunitoSans", 28, "bold"))
+        self.style.configure("label_bawah_login.TLabel", background = "white", font=("NunitoSans", 10, ))
+        self.style.configure("label_email.TLabel", background = "white", font=("NunitoSans", 10, ))
+        self.style.configure("label_password.TLabel", background = "white", font=("NunitoSans", 10, ))
+        self.style.configure("label_remember_password.TLabel", background = "white", font=("NunitoSans", 10, ))
 
         # <---------------------- STYLE ENTRY ---------------------->
+        self.style.configure("email_entry.TEntry", background = "#D8D8D8", font=("NunitoSans", 20, ))
+        self.style.configure("password_entry.TEntry", background = "#D8D8D8", font=("NunitoSans", 20, ))
 
         # <---------------------- STYLE BUTTON ---------------------->
+        self.style.configure("button_login.TButton", background = "#D8D8D8", font=("NunitoSans", 10, "bold"))
 
         # <---------------------- STYLE LIST ITEM ---------------------->
 
+        self.window = ttk.Frame(self)
+        self.window.place(relx=0, rely=0, relwidth=1, relheight=1)
+        
         self.login_page()
 
 
     def login_page(self):
-        self.canvas_login = tk.Canvas(self, bg = "#FFFFFF",height = 1024,width = 1365,bd = 0,highlightthickness = 0,relief = "ridge")
-        self.canvas_login.place(x = 0, y = 0)
-        self.canvas_login.create_rectangle(0.0, 0.0, 1365.0, 1070.0, fill="#4880FF", outline="")
-        self.canvas_login.create_rectangle(405.0, 10.0, 1035.0, 698.0, fill="#FFFFFF", outline="")
-        entry_image_1 = PhotoImage(file=relative_to_assets("entry_1.png"))
-        entry_bg_1 = self.canvas_login.create_image(720.0, 439.0, image=entry_image_1)
-        entry_1 = Entry(bd=0, bg="#F1F4F9", fg="#000716", highlightthickness=0)
-        entry_1.place(x=470.0, y=411.0, width=500.0, height=54.0)
-        self.canvas_login.create_text(462.0,371.0,anchor="nw",text="Password",fill="#202224",font=("NunitoSans SemiBold", 18 * -1))
-        self.canvas_login.create_text(845.0, 371.0, anchor="nw", text="Lupa Password?", fill="#202224", font=("NunitoSans SemiBold", 18 * -1))
-        self.canvas_login.create_text(498.0, 291.0, anchor="nw", text="Remember Password", fill="#202224", font=("NunitoSans SemiBold", 18 * -1))
-        self.canvas_login.create_text(478.0, 291.0, anchor="nw", text="wildanmukmin26@gmail.com", fill="#A6A6A6", font=("NunitoSans SemiBold", 18 * -1))
-        self.canvas_login.create_text(462.0, 235.0, anchor="nw", text="Email:", fill="#202224", font=("NunitoSans SemiBold", 18 * -1))
-        self.canvas_login.create_text(679.0, 113.0, anchor="nw", text="Login", fill="#202224", font=("NunitoSans Bold", 32 * -1))
-        self.canvas_login.create_text(504.0, 166.0, anchor="nw", text="Mohon Masukan Email Dan Password Dengan Benar!", fill="#202224", font=("NunitoSans SemiBold", 18 * -1))
-        self.button_image_1 = PhotoImage(file=relative_to_assets("button_1.png"))
-        self.button_1 = Button(image=self.button_image_1, borderwidth=0, highlightthickness=0, command=lambda: print("self.button_1 clicked"), relief="flat")
-        self.button_1.place(x=462.0, y=491.0, width=24.0, height=24.0)
-        self.image_image_1 = PhotoImage(file=relative_to_assets("image_1.png"))
-        self.image_1 = self.canvas_login.create_image(918.8333129882812, 438.5, image=self.image_image_1)
-        self.entry_image_2 = PhotoImage(file=relative_to_assets("entry_2.png"))
-        self.entry_bg_2 = self.canvas_login.create_image(720.0, 303.0, image=self.entry_image_2)
-        self.entry_2 = Entry(bd=0, bg="#F1F4F9", fg="#000716", highlightthickness=0)
-        self.entry_2.place(x=470.0, y=275.0, width=500.0, height=54.0)
-        self.button_image_2 = PhotoImage(file=relative_to_assets("button_2.png"))
-        self.button_2 = Button(image=self.button_image_2, borderwidth=0, highlightthickness=0, command=lambda: print("self.button_2 clicked"), relief="flat")
-        self.button_2.place(x=511.0, y=571.0, width=418.0, height=56.0)
+        # <-------------- BACKGROUND -------------->
+        self.background_login_frame = ttk.Frame(self.window, style="background_login_frame.TFrame")
+        self.background_login_frame.place(relx=0, rely=0, relwidth=1, relheight=1)
+        
+        # <-------------- INPUT -------------->
+        self.login_frame = ttk.Frame(self.background_login_frame, style="login_frame.TFrame")
+        self.login_frame.place(relx=0.5, rely=0.5, relwidth=0.3, relheight=0.8, anchor=tk.CENTER)
+        
+        # <-------------- HEADER -------------->
+        self.label_login = ttk.Label(self.login_frame, style="label_login.TLabel", text="Login")
+        self.label_login.place(anchor=tk.CENTER, relx=0.5 , y= 80)
+        
+        self.label_bawah_login = ttk.Label(self.login_frame, style="label_bawah_login.TLabel", text="Mohon Masukan Email Dan Password Dengan Benar!")
+        self.label_bawah_login.place(anchor=tk.CENTER, relx=0.5 , y= 120)
+    
+        # <-------------- FORM EMAIL -------------->
+        self.frame_form_email = ttk.Frame(self.login_frame, style="frame_form_email.TFrame")
+        self.frame_form_email.place(relx=0.5, y=200, width=340, height=70, anchor=tk.CENTER)
+        
+        self.label_email = ttk.Label(self.frame_form_email, style="label_email.TLabel", text="Email:")
+        self.label_email.place(anchor=tk.CENTER, relx=0.1 , y= 10)
+        
+        self.email_entry = ttk.Entry(self.frame_form_email, style="email_entry.TEntry")
+        self.email_entry.place(anchor=tk.CENTER, relx=0.5 , y= 40, relwidth=0.9, relheight=0.5)
+        
+        # <-------------- FORM PASSWORD -------------->
+        self.frame_form_password = ttk.Frame(self.login_frame, style="frame_form_password.TFrame")
+        self.frame_form_password.place(relx=0.5, y=320, width=340, height=120, anchor=tk.CENTER)
+        
+        self.label_password = ttk.Label(self.frame_form_password, style="label_password.TLabel", text="Password:")
+        self.label_password.place(anchor=tk.CENTER, relx=0.135 , y= 10)
+        
+        self.password_entry = ttk.Entry(self.frame_form_password, style="password_entry.TEntry")
+        self.password_entry.place(anchor=tk.CENTER, relx=0.5 , y= 40, relwidth=0.9, relheight=0.3)
+        
+        self.label_remember_password = ttk.Label(self.frame_form_password, style="label_remember_password.TLabel", text="Remember Password")
+        self.label_remember_password.place(anchor=tk.CENTER, relx=0.23 , y= 80)
+        
+        # <-------------- BUTTON LOGIN -------------->
+        self.button_login = ttk.Button(self.login_frame, text="Login", command=lambda e: print("button login is press") , style='button_login.TButton')
+        self.button_login.place(relx=0.5, y=440, anchor=tk.CENTER, relwidth=0.7, height=40)
 
+        
+        
+    
     def clear_content_frame(self):
-        for widget in self.content_frame.winfo_children():
+        for widget in self.window.winfo_children():
             widget.destroy()
 
 # <---------------------- Main program ---------------------->
